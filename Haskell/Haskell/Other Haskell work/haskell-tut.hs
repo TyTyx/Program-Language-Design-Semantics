@@ -91,8 +91,105 @@ listTimes2 = [x * 2 | x <- [1..10]]
 listTimes3 = [x * 3 | x <- [1..10], x*3 <= 50]
 -- Prints out multiples of three that are less than 50.
 divisBy9N13 = [x | x <- [1..500], x `mod` 13 == 0, x `mod` == 9]
--- Prints out numbers that are either divisible by '13' AND '9'.
+-- Prints out numbers that are divisible by '13' AND '9'.
 -- divisBy9N13_Output: [117,234,351,468]
 
--- 22:49
+sortedList = sort [9,1,8,3,4,7,6]
+-- Prints out a sorted list.
+
+sumOfList = zipWith (+) [1,2,3,4,5] [6,7,8,9,10]
+-- Calculates the sum of two lists using 'zipWith'.
+
+listBiggerThen5 = filter (>5) morePrime
+evensUpTo20 = takeWhile (<= 20) [2,4..]
+
+multOfList = foldl (*) [1,2,3,4,5]
+-- Multiples list from left to right.
+
+-- foldl: Left -> Right.
+-- foldr: Right -> Left.
+
+-- List Comprehension
+
+pow3List = [3^n | n <- [1..10]]
+-- Prints the powers of three from 1 -> 10.
+
+-----------------------------------------------------------------------
+
+-- Tuple
+-- Tuples can contain different data types, unlike lists.
+
+randTuple = (1, "Random Tumple")
+
+bobSmith = ("Bob Smith", 52)
+
+bobName = fst bobSmith -- Prints 'Bob Smith'.
+bobAge = snd bobSmith -- Prints '52'.
+
+names = ["Bob", "Mary", "Tom"]
+addresses = ["123 Main", "234 North", "567 South"]
+namesNAddress = zip names addresses -- Combines the lists names and addresses together, i.e. makes a tuple.
+
+-----------------------------------------------------------------------
+
+-- Functions.
+
+ main do
+    putStrLn "What's your name: "
+    name <- getLine
+    putStrLn ("Hello: " ++ name)
+
+addMe :: Int -> Int -> Int
+-- funcName param1 param2 = operations (returned value)
+-- funcName cannot be named with a capital letter.
+
+addMe x y = x + y
+
+sumMe x y = x + y
+
+addTuples :: (Int, Int) -> (Int, Int) -> (Int, Int)
+addTuples (x, y) (x2, y2) = (x + x2, y + y2)
+
+whatAge :: Int -> String
+whatAge 16 = "You can drive"
+whatAge 18 = "You can vote"
+whatAge 21 = "You're an adult"
+whatAge x = "Nothing important" -- An underscore could be used instead of the 'x'.
+
+-- Recursion.
+
+factorial :: Int -> Int
+factorial 0 = 1
+factorial n = n * factorial (n - 1)
+
+-----------------------------------------------------------------------
+
+isOdd :: Int -> Boolean
+isOdd n
+    n `mod` 2 == 0 = False
+    otherwise = True
+
+whatGrade :: Int -> String
+whatGrade age
+    (age >= 5) && (age <= 6) = "kindergarten"
+    (age > 6) && (age <= 10) = "elementary"
+    (age > 10) && (age <= 14) = "middle"
+    (age > 14) && (age <= 18) = "high"
+    otherwise "Go to college"
+
+batAvgRating :: Double -> Double -> String
+batAvgRating hots atBats
+    | avg <= 0.200 = "Terrible Batting Average"
+    | avg <= 0.250 = "Average Player"
+    | avg <= 0.280 = "Your doing pretty good"
+    | otherwise = "You're a Star!"
+    where avg = hits / atBats
+
+-- batAvgRating 20 100
+-- "Terrible Batting Average"
+-- batAvgRating 30 100
+-- "You're a Star!"
+
+-- 43:03
+
 -----------------------------------------------------------------------
