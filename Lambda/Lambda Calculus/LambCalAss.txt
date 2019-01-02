@@ -1,0 +1,164 @@
+PART TWO:
+
+(λ c . (λ a . (λ d . (λ h . (h (d (a (a (λ z y . y))) (d (a (a (λ f x . x))) (a (a (a (λ z x . x)))))) (h (a (a (λ z y . y))) (a (a (a (λ z x . x))))))) (λ n m . n (d m) (λ z y . y))) (λ n m . n a m)) (λ n z . c (n z) z)) (λ z g x . z (g x))
+
+Easier to read:
+
+(λ c . 
+(λ a . 
+(λ d . 
+(λ h .
+	(h 
+		(d 
+			(a 
+				(a 
+					(λ z y . y)
+				)
+			) 
+			(d 
+				(a 
+					(a 
+						(λ f x . x)
+					)
+				) 
+				(a 
+					(a 
+						(a 
+							(λ z x . x)
+						)
+					)
+				)
+			)
+		) 
+		(h 
+			(a 
+				(a 
+					(λ z y . y)
+				)
+			) 
+			(a 
+				(a 
+					(a 
+						(λ z x . x)
+					)
+				)
+			)
+		)
+	)
+)
+(λ n m . n (d m)
+(λ z y . y)))
+(λ n m . n a m))
+(λ n z . c (n z) z))
+(λ z g x . z (g x))
+
+Cleaner representation:
+
+	(λ c . 
+	(λ a . 
+	(λ d . 
+	(λ h . 
+	(h (d (a (a (λ z y . y))) 
+	(d (a (a (λ f x . x))) 
+	(a (a (a (λ z x . x)))))) 
+	(h (a (a (λ z y . y))) 
+	(a (a (a (λ z x . x))))))) 
+	(λ n m . n (d m) (λ z y . y))) 
+	(λ n m . n a m)) 
+	(λ n z . c (n z) z)) 
+	(λ z g x . z (g x))
+
+Solutions
+	(λ n m . n (d m) (λ z y . y)))  = (λ n. n (λ z y . y)) = (λ z y . y)
+	(λ n m . n a m)) = (λ n . n a) = a
+	(λ n z . c (n z) z))  = c
+	(λ z g x . z (g x)) = (λ z g. z)
+
+Using above reduces to
+	(λ c . 
+	(λ a . 
+	(λ d . 
+	(λ h . 
+	(h (d (a (a (λ z y . y))) 
+	(d (a (a (λ f x . x))) 
+	(a (a (a (λ z x . x)))))) 
+	(h (a (a (λ z y . y))) 
+	(a (a (a (λ z x . x))))))) 
+	(λ z y . y)) 
+	 a)
+	 c)
+	(λ z g. z)
+
+C is an unbound variable so it can be reduced to:
+	(λ a . 
+	(λ d . 
+	(λ h . 
+	(h (d (a (a (λ z y . y))) 
+	(d (a (a (λ f x . x))) 
+	(a (a (a (λ z x . x)))))) 
+	(h (a (a (λ z y . y))) 
+	(a (a (a (λ z x . x))))))) 
+	(λ z y . y)) 
+	 a)
+	(λ z g. z)
+
+
+Reduce d to (λ z y . y)
+	(λ h . 
+	(h (λ z y . y (a (a (λ z y . y))) 
+	(λ z y . y(a (a (λ f x . x))) 
+	(a (a (a (λ z x . x)))))) 
+	(h (a (a (λ z y . y))) 
+	(a (a (a (λ z x . x)))))))  
+	(λ z g. z)
+
+
+Alpha renaming 
+	(λ h . 
+	(h (λ z y . y (a (a (λ z y . y))) 
+	((λ z y . y (a (a (λ f x . x))) 
+	((λ z x . x))(a (a(λ f x . x)))) 
+	(a (a (a (λ z y . y))) 
+	(h (a (a (λ z x . x))))))
+	(a(a(a(λ zj. j)))))))
+	(λ kg.k)
+
+Beta Reduce h to λ k g.k
+	(λ k g.k (λ z y . y (a (a (λ z y . y))) 
+	((λ z y . y (a (a (λ f x . x))) 
+	(a (a (a (λ z y . y))) 
+	(λ kg.k (a (a (λ z x . x))))))
+	(a(a(a(λ zj. j)))))))
+
+Alpha Renaming
+	(λ k g.k (λ z y . y (a (a (λ z y . y))) 
+	((λ z y . y (a (a (λ f x . x))) 
+	(a (a (a (λ z y . y))) 
+	(λ z x . z(a(a(λzj.j)))))
+	(a(a(a(λ rs. s))))))))
+
+Beta Reducution
+	(λ g(λ z y . y (a (a (λ z y . y))) 
+	((λ z y . y (a (a (λ f x . x))) 
+	(a (a (a (λ z y . y))) 
+	(λ z x . z(a(a(λzj.j)))))
+	(a(a(a(λ rs. s))))))))
+
+Beta Reduce g to (λ z x . z(a(a(λzj.j)))(a(a(a(λ rs. s)))))
+	(λ z y . y (a (a (λ z y . y))) 
+	((λ z y . y (a (a (λ f x . x))) 
+	(a (a (a (λ z y . y)))))))
+
+Beta Reduction
+	(λ z y . y
+	((λ z y . y (a (a (λ f x . x))) 
+	(a (a (a (λ z y . y)))))))
+
+Beta Reduction
+	(λ z y . y (a (a (λ f x . x)))(a (a (a (λ z y . y)))))))
+
+Beta Reduction
+	(λ y . y(a (a (a (λ z y . y)))))
+
+Beta Reduction to Normal form
+	(a (a (a (λ z y . y))))
