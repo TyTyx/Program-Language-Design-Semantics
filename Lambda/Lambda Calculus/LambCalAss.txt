@@ -47,6 +47,90 @@ kar (kons e1 e2) -> e1
 
 --------------------------------------------------------------------------------
 
+2. kdr (kons e1 e2) -> e2
+
+# Start inside the brackets.
+(kons e1 e2) becomes ((λ a d z . z false a d) e1 e2)
+
+# Using β-reduction. ([a := e1] and [d := e2])
+((λ a d z . z false a d) e1 e2) ->β (λ z . z false e1 e2)
+
+# Subbing the beta-reduction back in.
+kdr (λ z . z false e1 e2)
+
+# Sub in kdr.
+(λ p . p (λ n a d . d))(λ z . z false e1 e2)
+
+# Using β-reduction. ([p := λ z . z false e1 e2])
+(λ p . p (λ n a d . d))(λ z . z false e1 e2)->β (λ z . z false e1 e2)(λ n a d . d)
+
+# Using β-reduction. ([z := λ n a d . d])
+(λ z . z false e1 e2)(λ n a d . d) ->β ((λ n a d . d) false e1 e2)
+
+# Using subtitution. ([n := false, a := e1 and d := e2])
+# Since the value being retured is d and has the value: e2.
+
+kdr (kons e1 e2) -> e2
+
+# Is shown to hold.
+
+--------------------------------------------------------------------------------
+
+3. null? (kons e1 e2) -> false
+
+# Start inside the brackets.
+(kons e1 e2) becomes ((λ a d z . z false a d) e1 e2)
+
+# Using β-reduction. ([a := e1] and [d := e2])
+((λ a d z . z false a d) e1 e2) ->β (λ z . z false e1 e2)
+
+# Subbing the beta-reduction back in.
+null? (λ z . z false e1 e2)
+
+# Sub in null?.
+(λ p . p (λ n a d . n))(λ z . z false e1 e2)
+
+# Using β-reduction. ([p := λ z . z false e1 e2])
+(λ p . p (λ n a d . n))(λ z . z false e1 e2)->β (λ z . z false e1 e2)(λ n a d . n)
+
+# Using β-reduction. ([z := λ n a d . n])
+(λ z . z false e1 e2)(λ n a d . n) ->β ((λ n a d . n) false e1 e2)
+
+# Using subtitution. ([n := false, a := e1 and d := e2])
+# Since the value being retured is n and has the value: false.
+
+null? (kons e1 e2) -> false
+
+# Is shown to hold.
+
+--------------------------------------------------------------------------------
+
+4. null? null -> true
+
+# Start with null
+null becomes (λ z . z true false false)
+
+# Sub expandtion back into original formula.
+null? (λ z . z true false false)
+
+# Sub in null?.
+(λ p . p (λ n a d . n))(λ z . z true false false)
+
+# Using β-reduction. ([p := λ z . z true false false])
+(λ z . z true false false)(λ n a d . n)
+
+# Using β-reduction. ([z := λ n a d . n])
+((λ n a d . n) true false false)
+
+# Using subtitution. ([n := true, a := false and d := false])
+# Since the value being retured is n and has the value: true.
+
+null? null -> true
+
+# Is shown to hold.
+
+--------------------------------------------------------------------------------
+
 PART TWO:
 
 (λ c . (λ a . (λ d . (λ h . (h (d (a (a (λ z y . y))) (d (a (a (λ f x . x))) (a (a (a (λ z x . x)))))) (h (a (a (λ z y . y))) (a (a (a (λ z x . x))))))) (λ n m . n (d m) (λ z y . y))) (λ n m . n a m)) (λ n z . c (n z) z)) (λ z g x . z (g x))
