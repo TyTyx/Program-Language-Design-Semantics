@@ -1,3 +1,52 @@
+Lambda Calculus:
+PART ONE.
+
+Abbreivations:
+kons = λ a d z . z false a d
+kar = λ p . p (λ n a d . a)
+kdr = λ p . p (λ n a d . d)
+null = λ z . z true false false
+null? = λ p . p (λ n a d . n)
+true = λ a b . a
+false = λ a b . b
+
+Prove that the folling properties hold:
+1. kar (kons e1 e2) -> e1
+2. kdr (kons e1 e2) -> e2
+3. null? (kons e1 e2) -> false
+4. null? null -> true
+
+--------------------------------------------------------------------------------
+
+1. kar (kons e1 e2) -> e1
+
+# Start inside the brackets.
+(kons e1 e2) becomes ((λ a d z . z false a d) e1 e2)
+
+# Using β-reduction. ([a := e1] and [d := e2])
+((λ a d z . z false a d) e1 e2) ->β (λ z . z false e1 e2)
+
+# Subbing the beta-reduction back in.
+kar (λ z . z false e1 e2)
+
+# Sub in kar.
+(λ p . p (λ n a d . a))(λ z . z false e1 e2)
+
+# Using β-reduction. ([p := λ z . z false e1 e2])
+(λ p . p (λ n a d . a))(λ z . z false e1 e2)->β (λ z . z false e1 e2)(λ n a d . a)
+
+# Using β-reduction. ([z := λ n a d . a])
+(λ z . z false e1 e2)(λ n a d . a) ->β ((λ n a d . a) false e1 e2)
+
+# Using subtitution. ([n := false, a := e1 and d := e2])
+# Since the value being retured is a and has the value: e1.
+
+kar (kons e1 e2) -> e1
+
+# Is shown to hold. 
+
+--------------------------------------------------------------------------------
+
 PART TWO:
 
 (λ c . (λ a . (λ d . (λ h . (h (d (a (a (λ z y . y))) (d (a (a (λ f x . x))) (a (a (a (λ z x . x)))))) (h (a (a (λ z y . y))) (a (a (a (λ z x . x))))))) (λ n m . n (d m) (λ z y . y))) (λ n m . n a m)) (λ n z . c (n z) z)) (λ z g x . z (g x))
