@@ -13,7 +13,7 @@
 ;; Credits:
 ;; https://rosettacode.org/wiki/Horner%27s_rule_for_polynomial_evaluation#Racket
 ;; https://github.com/jdan/code/blob/master/racket/polynomial.rkt
-;; https://github.com/MrShedford/Functional-Programming
+;; MrShedford
 
 Welcome to Racket v7.0.
 
