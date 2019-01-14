@@ -7,3 +7,4 @@ The main focus being on Functional Programming with Lambda Calculus.
 Langauges include:
   - Scheme.
   - Haskell.
+  - And a bit of Prolog.
