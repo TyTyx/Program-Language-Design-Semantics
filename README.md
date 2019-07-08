@@ -1,8 +1,8 @@
 # Program-Language-Design-Semantics
 
-Repository looking at work from one of my current modules in college; Programming Language Design and Semantics.
+Repository for 'Programming Language Design and Semantics' module.
 
-The main focus being on Functional Programming with Lambda Calculus.
+Focusing on Functional Programming with Lambda Calculus.
 
 Langauges include:
   - Scheme.
